@@ -1,10 +1,11 @@
 node_modules
 
-#NEST GIT IGNORE
-
 # compiled output
-/apps/api/dist
-/apps/api/build
+dist
+build
+dist-ssr
+
+*.local
 
 # Logs
 logs
@@ -23,7 +24,7 @@ lerna-debug.log*
 /apps/api/.nyc_output
 
 # IDEs and editors
-/apps/api/.idea
+.idea
 .project
 .classpath
 .c9/
@@ -37,6 +38,14 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # dotenv environment variable files
 .env
