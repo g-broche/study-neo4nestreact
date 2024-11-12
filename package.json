@@ -1,8 +1,15 @@
 {
+  "name": "neo4j",
   "devDependencies": {
     "turbo": "^2.2.3"
   },
-  "workspaces":[
+  "scripts": {
+    "dev": "turbo run dev"
+  },
+  "workspaces": [
     "apps/*"
-  ]
+  ],
+  "packageManager": "npm@10.9.0",
+  "dependencies": {
+  }
 }
