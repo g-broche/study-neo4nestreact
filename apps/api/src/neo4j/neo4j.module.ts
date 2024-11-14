@@ -33,6 +33,7 @@ export class Neo4jModule {
               );
               await driver.getServerInfo();
               console.log('>> Neo4J connection established');
+              return driver;
             } catch (error) {
               const connectionError = new ConnectionError(error);
               console.error(connectionError.message);
@@ -41,6 +42,7 @@ export class Neo4jModule {
           },
         },
       ],
+      exports: [Neo4jService],
     };
   }
 }
