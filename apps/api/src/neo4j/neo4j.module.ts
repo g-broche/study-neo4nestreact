@@ -4,9 +4,7 @@ import { Neo4jService } from './neo4j.service';
 import { Neo4jConfig } from './neo4j-config.interface';
 import neo4j from 'neo4j-driver';
 import { ConnectionError, createDatabaseConfig } from './neo4j.utils';
-
-export const NEO4J_CONFIG = 'NEO4J_CONFIG';
-export const NEO4J_CONNECTION = 'NEO4J_CONNECTION';
+import { NEO4J_CONFIG, NEO4J_DRIVER } from './neo4j-constants';
 
 @Module({
   providers: [Neo4jService],
@@ -25,7 +23,7 @@ export class Neo4jModule {
             createDatabaseConfig(configService, customConfig),
         },
         {
-          provide: NEO4J_CONNECTION,
+          provide: NEO4J_DRIVER,
           inject: [NEO4J_CONFIG],
           useFactory: async (config: Neo4jConfig) => {
             try {
@@ -36,7 +34,9 @@ export class Neo4jModule {
               await driver.getServerInfo();
               console.log('>> Neo4J connection established');
             } catch (error) {
-              throw new ConnectionError(error);
+              const connectionError = new ConnectionError(error);
+              console.error(connectionError.message);
+              throw connectionError;
             }
           },
         },
