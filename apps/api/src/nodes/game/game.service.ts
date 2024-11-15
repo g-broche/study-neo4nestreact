@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Node } from 'neo4j-driver';
-import { Game } from 'src/entity/game';
-import { Genre } from 'src/entity/genre';
 import { QueryResponse } from 'src/interface/queryResponse';
-import { convertRecordToGenre } from '../genre/genre.service';
+import { convertRecordToGenreDTO } from '../genre/genre.service';
 import { Neo4jService } from 'src/neo4j/neo4j.service';
+import { GameDTO, GenreDTO } from 'src/interface/dataTransfertObject';
 
 @Injectable()
 export class GameService {
@@ -17,7 +16,7 @@ export class GameService {
         MATCH (ga:GAME)-[:HAS]->(ge:GENRE)
         return ga, collect(ge) as genres`);
       const games = result.records.map((record) =>
-        convertRecordToGame(record.get('ga'), record.get('genres')),
+        convertRecordToGameDTO(record.get('ga'), record.get('genres')),
       );
       return {
         success: true,
@@ -33,10 +32,16 @@ export class GameService {
   }
 }
 
-export function convertRecordToGame(gameNode: Node, genreNodes: Node[]): Game {
-  const name: string = gameNode.properties.name;
-  const genres: Genre[] = genreNodes.map((genreNode: Node) =>
-    convertRecordToGenre(genreNode),
-  );
-  return new Game(name, genres);
+export function convertRecordToGameDTO(
+  gameNode: Node,
+  genreNodes?: Node[],
+): GameDTO {
+  const gameDTO: GameDTO = { name: gameNode.properties.name };
+  if (genreNodes !== undefined) {
+    const genresDTO: GenreDTO[] = genreNodes.map((genreNode: Node) =>
+      convertRecordToGenreDTO(genreNode),
+    );
+    gameDTO.genres = genresDTO;
+  }
+  return gameDTO;
 }

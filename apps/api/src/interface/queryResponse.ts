@@ -1,7 +1,7 @@
-import { Entity } from 'src/type/entity';
+import { EntityDTO } from 'src/type/entity';
 
 export interface QueryResponse {
   success: boolean;
-  items: Entity[];
+  items: EntityDTO[];
   message?: string;
 }

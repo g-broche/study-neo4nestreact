@@ -1,17 +1,24 @@
 import { Expose } from 'class-transformer';
+import { Entity } from './entity';
+import { GenreDTO } from 'src/interface/dataTransfertObject';
 
-export class Genre {
-  @Expose({ name: 'name' })
-  private _name: string;
+export class Genre extends Entity {
+  @Expose({ name: 'label' })
+  private _label: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(label: string) {
+    super();
+    this.label = label;
   }
 
-  public get name(): string {
-    return this._name;
+  public get label(): string {
+    return this._label;
   }
-  public set name(value: string) {
-    this._name = value;
+  public set label(value: string) {
+    this._label = value;
+  }
+
+  toDTO(): GenreDTO {
+    return { label: this.label };
   }
 }
