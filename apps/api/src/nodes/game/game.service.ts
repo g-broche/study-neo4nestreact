@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Node } from 'neo4j-driver';
 import { QueryResponse } from 'src/interface/queryResponse';
-import { convertRecordToGenreDTO } from '../genre/genre.service';
 import { Neo4jService } from 'src/neo4j/neo4j.service';
-import { GameDTO, GenreDTO } from 'src/interface/dataTransfertObject';
+import { convertRecordToGameDTO } from 'src/utils/nodeToDTOConverters';
 
 @Injectable()
 export class GameService {
@@ -30,18 +28,4 @@ export class GameService {
       };
     }
   }
-}
-
-export function convertRecordToGameDTO(
-  gameNode: Node,
-  genreNodes?: Node[],
-): GameDTO {
-  const gameDTO: GameDTO = { name: gameNode.properties.name };
-  if (genreNodes !== undefined) {
-    const genresDTO: GenreDTO[] = genreNodes.map((genreNode: Node) =>
-      convertRecordToGenreDTO(genreNode),
-    );
-    gameDTO.genres = genresDTO;
-  }
-  return gameDTO;
 }
