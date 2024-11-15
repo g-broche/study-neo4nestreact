@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ApiGenreController } from './api-genre.controller';
+import { GenreController } from './genre.controller';
 
 describe('GenreController', () => {
-  let controller: ApiGenreController;
+  let controller: GenreController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ApiGenreController],
+      controllers: [GenreController],
     }).compile();
 
-    controller = module.get<ApiGenreController>(ApiGenreController);
+    controller = module.get<GenreController>(GenreController);
   });
 
   it('should be defined', () => {

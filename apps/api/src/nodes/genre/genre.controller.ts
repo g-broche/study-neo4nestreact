@@ -3,7 +3,7 @@ import { GenreService } from './genre.service';
 import { JsonQueryResponse } from 'src/interface/jsonResponse';
 
 @Controller('api/genres')
-export class ApiGenreController {
+export class GenreController {
   constructor(private readonly genreService: GenreService) {}
   @Get()
   async findAll(): Promise<JsonQueryResponse> {

@@ -3,7 +3,7 @@ import { GameService } from './game.service';
 import { JsonQueryResponse } from 'src/interface/jsonResponse';
 
 @Controller('api/games')
-export class ApiGameController {
+export class GameController {
   constructor(private readonly gameService: GameService) {}
   @Get()
   async findAll(): Promise<JsonQueryResponse> {

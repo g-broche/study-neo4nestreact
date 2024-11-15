@@ -1,7 +1,9 @@
+import { Expose } from 'class-transformer';
 import { Entity } from './entity';
-import { GenreDTO } from 'src/interface/dataTransfertObject';
+import { CategoryDTO } from 'src/interface/dataTransfertObject';
 
-export class Genre extends Entity {
+export class Category extends Entity {
+  @Expose({ name: 'label' })
   private _label: string;
 
   constructor(label: string) {
@@ -16,7 +18,7 @@ export class Genre extends Entity {
     this._label = value;
   }
 
-  toDTO(): GenreDTO {
+  toDTO(): CategoryDTO {
     return { label: this.label };
   }
 }

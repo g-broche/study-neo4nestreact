@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ApiGenreController } from './api-genre.controller';
+import { GenreController } from './genre.controller';
 import { GenreService } from './genre.service';
 
 @Module({
-  controllers: [ApiGenreController],
+  controllers: [GenreController],
   providers: [GenreService],
 })
 export class GenreModule {}

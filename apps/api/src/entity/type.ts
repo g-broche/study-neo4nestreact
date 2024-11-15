@@ -1,7 +1,7 @@
 import { Entity } from './entity';
-import { GenreDTO } from 'src/interface/dataTransfertObject';
+import { TypeDTO } from 'src/interface/dataTransfertObject';
 
-export class Genre extends Entity {
+export class Type extends Entity {
   private _label: string;
 
   constructor(label: string) {
@@ -16,7 +16,7 @@ export class Genre extends Entity {
     this._label = value;
   }
 
-  toDTO(): GenreDTO {
+  toDTO(): TypeDTO {
     return { label: this.label };
   }
 }
