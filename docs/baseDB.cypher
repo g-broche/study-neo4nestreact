@@ -1,3 +1,5 @@
+// done as a first step block of instructions : adding most basic nodes (excluding video) and game to genre relation 
+
 CREATE
 (card:GENRE{label:"card"}),
 (drawingGenre:GENRE{label:"drawing"}),
@@ -64,3 +66,48 @@ CREATE
 (pokemonpocket)-[:HAS]->(multiplayer),
 (aquadance)-[:HAS]->(horrorGenre),
 (aquadance)-[:HAS]->(storyGenre)
+
+
+// done as a second step block of instructions : adding a video and its relations
+
+CREATE
+(newvid:VIDEO{title:"[Dragon Ball Z: Kakarot] First time playing! Time for the Cell games!!! #07", description:"It's time for the Cell games with some iconic moments of Dragon Ball Z!"})
+
+WITH newvid
+MATCH (p:PLATFORM)
+WHERE p.name = "Youtube"
+MERGE (newvid)-[:IS_HOSTED_ON{
+    date: date('2024-11-05'),
+    url:"https://www.youtube.com/watch?v=wRsDpb6o_mg",
+    thumbnail:"2024-11-05-small.webp"}
+    ]->(p)
+
+WITH newvid
+UNWIND ['game'] AS tagLabel
+MATCH (tag:TAG {label: tagLabel})
+MERGE (newvid)-[:HAS]->(tag)
+
+WITH newvid
+MATCH (ca:CATEGORY)
+WHERE ca.label = "game"
+MERGE (newvid)-[:BELONGS_TO]->(ca)
+
+WITH newvid
+MATCH (ty:TYPE)
+WHERE ty.label = "archive"
+MERGE (newvid)-[:IS_OF]->(ty)
+
+WITH newvid
+MATCH (ga:GAME)
+WHERE ga.name = "Dragon Ball Z: Kakarot"
+MERGE (newvid)-[:FEATURES]->(ga)
+
+
+// adding extra nodes and relation for testing parsing record
+
+CREATE
+(storyTag:TAG{label:"story"})
+WITH storyTag
+MATCH (v:VIDEO)
+WHERE v.title = "[Dragon Ball Z: Kakarot] First time playing! Time for the Cell games!!! #07"
+MERGE (v)-[:HAS]->(storyTag)

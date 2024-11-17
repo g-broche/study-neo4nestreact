@@ -1,5 +1,8 @@
 node_modules
 
+# dynamic media
+/apps/api/media
+
 # compiled output
 dist
 build

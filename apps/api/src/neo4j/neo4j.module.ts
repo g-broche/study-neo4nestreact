@@ -32,7 +32,6 @@ export class Neo4jModule {
                 neo4j.auth.basic(config.username, config.password),
               );
               await driver.getServerInfo();
-              console.log('>> Neo4J connection established');
               return driver;
             } catch (error) {
               const connectionError = new ConnectionError(error);
