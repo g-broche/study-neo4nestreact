@@ -10,9 +10,15 @@ import { CategoryModule } from './nodes/category/category.module';
 import { TagModule } from './nodes/tag/tag.module';
 import { PlatformModule } from './nodes/platform/platform.module';
 import { VideoModule } from './nodes/video/video.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'media'),
+      serveRoot: '/media',
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
