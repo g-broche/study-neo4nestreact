@@ -35,7 +35,7 @@ export interface VideoDTO {
 
 export interface HostDTO {
   name: string;
-  date: Date;
+  date: string;
   url: string;
   thumbnail: string;
 }

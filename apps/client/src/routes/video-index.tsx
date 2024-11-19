@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { VideoDTO } from "../interface/dataTransfertObject";
+import VideoGrid from "../component/video-grid";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const ENDPOINT = "/videos";
@@ -9,7 +10,7 @@ function VideoIndex(){
     data: videos,
     isError,
     error,
-    isPending,
+    isLoading
   } = useQuery ({
     queryKey: [ENDPOINT],
     queryFn: async () => {
@@ -23,6 +24,7 @@ function VideoIndex(){
             ? errorData.data.message
             : `processing the request cause an error (code: ${response.status})`;
           throw new Error(errorMessage);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           throw new Error(`processing the request cause an unhandled error (code: ${response.status})`);
         }
@@ -42,9 +44,39 @@ function VideoIndex(){
       throw new Error(errorMessage);
     }
   })
+
+  if(isLoading){
+    return (
+      <>
+        <h1>Video list</h1>
+        <p className="centered-text">Loading data...</p>
+      </>
+    )
+  }
+
+  if(isError){
+    return (
+      <>
+        <h1>Video list</h1>
+        <p className="centered-text">An error as occured : "{error.message}"</p>
+      </>
+    )
+  }
+
+  
+  if(videos && videos.length == 0 ){
+    return (
+      <>
+        <h1>Video list</h1>
+        <p className="centered-text">No video are currently listed"</p>
+      </>
+    )
+  }
+  
   return(
     <>
-      <h1>Add video index here</h1>
+      <h1>Video list</h1>
+      <VideoGrid videos={videos!}/>
     </>
   )
 }
