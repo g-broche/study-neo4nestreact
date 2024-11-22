@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { VideoDTO } from "../interface/dataTransfertObject";
 import VideoGrid from "../component/video-grid";
-import PageHeader from "../component/page-header";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const ENDPOINT = "/videos";
@@ -64,7 +63,6 @@ function VideoIndex(){
   
   return(
     <>
-      <PageHeader></PageHeader>
       <main>
         <header className="main-component title-block">
           <h1 className="title">Video list</h1>

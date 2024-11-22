@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function PageHeader(){
   return (
     <>
@@ -5,16 +7,15 @@ function PageHeader(){
         <nav>
           <ul>
             <li>
-              <a className="button" href="/">Home</a>
+              <Link to="/" className="button">Home</Link>
             </li>
             <li>
-              <a className="button" href="/videos">Videos</a>
+              <Link to="/videos" className="button">Videos</Link>
             </li>
           </ul>
         </nav>
       </header>
     </>
-
   )
 }
 
