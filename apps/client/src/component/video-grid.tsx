@@ -22,39 +22,45 @@ function VideoGrid({ videos }: { videos: VideoDTO[] }) {
               <td className="thumbnail-cell">
                 <img 
                   src={video.hosts![0].thumbnail}
-                  alt={`thumbnail ${video.title}`} 
+                  alt={`thumbnail ${video.type!.label} ${video.hosts![0].date}`} 
                 />
               </td>
               <td>{video.title}</td>
               <td>{video.hosts![0].date}</td>
-              <td className="url-cell list-cell column-list">
-                <ul>
+              <td className="url-cell list-cell">
+                <ul className="column-list">
                   {video.hosts!.map(host => (
-                    <td>{host.url}</td>
+                    <li>{host.url}</li>
                   ))}
                 </ul>
               </td>
-              <td className="category-cell list-cell row-list">
-                <ul>
+              <td className="category-cell list-cell">
+                <ul className="row-list">
                   {video.categories!.map(category => (
-                    <td>{category.label}</td>
+                    <li>{category.label}</li>
                   ))}
                 </ul>
               </td>
-              <td className="tag-cell list-cell row-list">
-                <ul>
+              <td className="tag-cell list-cell">
+                <ul className="row-list">
                   {video.tags!.map(tag => (
-                    <td>{tag.label}</td>
+                    <li>{tag.label}</li>
                   ))}
                 </ul>
               </td>
               <td>{video.type!.label}</td>
-              <td className="action-cell list-cell column-list">
-                <button className="edit">edit-(todo)</button>
-                <button className="delete">delete(todo)</button>
+              <td className="action-cell list-cell">
+                <ul className="row-list column-list">
+                  <li>
+                    <button className="edit">edit(todo)</button>
+                  </li>
+                  <li>
+                    <button className="delete">delete(todo)</button>
+                  </li>
+                </ul>
               </td>
             </tr>
-          ))};
+          ))}
         </tbody>
       </table>
     </>

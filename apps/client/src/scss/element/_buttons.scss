@@ -1,0 +1,20 @@
+@use "../abstract/" as *;
+
+a.button{
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+
+button, .button{
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+button.edit{
+    background-color: $color-neutral;
+}
+button.delete{
+    background-color: $color-negative;
+}

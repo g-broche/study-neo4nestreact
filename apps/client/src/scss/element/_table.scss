@@ -1,0 +1,38 @@
+table{
+    border-collapse: collapse;
+    border: 3px solid black;
+    ul{
+        list-style: none;
+    }
+}
+
+thead{
+    border: 2px solid black;
+}
+
+tr{
+    border: 1px solid black;
+}
+
+td, th{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.action-cell{
+    button, .button{
+        width: 100%;
+    }
+}
+
+.row-list{
+    display: flex;
+    flex-direction: row;
+    gap: .25rem
+}
+
+.column-list{
+    display: flex;
+    flex-direction: column;
+    gap: .25rem
+}

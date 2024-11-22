@@ -1,4 +1,4 @@
-function Header(){
+function PageHeader(){
   return (
     <>
       <header id="page-header">
@@ -18,4 +18,4 @@ function Header(){
   )
 }
 
-export default Header
+export default PageHeader

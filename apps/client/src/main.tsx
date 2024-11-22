@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Header from './component/header.tsx'
 import Home from './routes/home.tsx'
 import VideoIndex from './routes/video-index.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -23,7 +22,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Header></Header>
       <RouterProvider router={router} />
     </QueryClientProvider>,
   </StrictMode>,

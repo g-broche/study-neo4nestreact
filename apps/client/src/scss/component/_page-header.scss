@@ -1,0 +1,24 @@
+@use "../abstract/" as *;
+
+#page-header{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    nav{
+        width: fit-content;
+        padding: $paddingV-container-level1 $paddingH-container-level1;
+        ul{
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        a{
+            transition: color linear .3s;
+        }
+        a:hover{
+            color:$color-hover;
+            transform: scale(1.1);
+        }
+    }
+}

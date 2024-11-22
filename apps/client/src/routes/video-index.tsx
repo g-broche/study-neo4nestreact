@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { VideoDTO } from "../interface/dataTransfertObject";
 import VideoGrid from "../component/video-grid";
+import PageHeader from "../component/page-header";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const ENDPOINT = "/videos";
@@ -45,38 +46,33 @@ function VideoIndex(){
     }
   })
 
-  if(isLoading){
-    return (
-      <>
-        <h1>Video list</h1>
-        <p className="centered-text">Loading data...</p>
-      </>
-    )
-  }
-
-  if(isError){
-    return (
-      <>
-        <h1>Video list</h1>
-        <p className="centered-text">An error as occured : "{error.message}"</p>
-      </>
-    )
-  }
-
-  
-  if(videos && videos.length == 0 ){
-    return (
-      <>
-        <h1>Video list</h1>
-        <p className="centered-text">No video are currently listed"</p>
-      </>
-    )
-  }
+  const  getVideoContent = () => {
+      if (isLoading) {
+        return <p className="centered-text">Loading data...</p>
+      }
+      
+      if (isError) {
+        return <p className="centered-text">An error as occured: "{error.message}"</p>
+      }
+      
+      if (videos && videos.length === 0) {
+        return <p className="centered-text">No video are currently listed</p>
+      }
+      
+      return <VideoGrid videos={videos!} />
+    }
   
   return(
     <>
-      <h1>Video list</h1>
-      <VideoGrid videos={videos!}/>
+      <PageHeader></PageHeader>
+      <main>
+        <header className="main-component title-block">
+          <h1 className="title">Video list</h1>
+        </header>
+        <section className="main-component">
+          {getVideoContent()}
+        </section>
+      </main>
     </>
   )
 }

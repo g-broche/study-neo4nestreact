@@ -1,6 +1,9 @@
-$paddingV-container-level1 : 5px;
-$paddingH-container-level1 : 5%;
-$font-size-base : 16px;
+@use "./scss/abstract" as *;
+@use "./scss/element" as *;
+@use "./scss/component" as *;
+@use "./scss/page" as *;
+
+
 
 *{
     margin:0;
@@ -9,59 +12,10 @@ $font-size-base : 16px;
     font-size: $font-size-base;
 }
 
-h1{
-    font-size: calc($font-size-base * 1.75);
-    text-align: center;
-}
-
-h2{
-    font-size: calc($font-size-base * 1.5);
-}
-
-h3, button, .button{
-    font-size: calc($font-size-base * 1.25);
-}
-
-a.button{
-    display: inline-block;
-    text-decoration: none;
-    color: inherit;
-}
-
-button, .button{
-    border: none;
-    padding: 5px 10px;
-}
-
-.centered-text{
-    text-align: center;
-}
-
 #root{
     width:100%;
     min-height:100vh;
 }
 
-#page-header{
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    nav{
-        width: fit-content;
-        padding: $paddingV-container-level1 $paddingH-container-level1;
-        ul{
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-        a{
-            transition: color linear .3s;
-        }
-        a:hover{
-            color:rgb(0, 153, 255);
-            transform: scale(1.1);
-        }
-    }
-}
+
 

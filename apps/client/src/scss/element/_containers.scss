@@ -1,0 +1,19 @@
+@use "../abstract/" as *;
+.main-component{
+    padding-left : $paddingH-container-level1;
+    padding-right : $paddingH-container-level1;
+}
+
+.title-block{
+    display: block;
+    h1{
+        padding: 1.5rem 2rem;
+    }
+    h2{
+        padding: 1.25rem 2rem;
+    }
+    h3{
+        padding: 1rem 2rem;
+    }
+
+}
