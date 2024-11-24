@@ -7,6 +7,7 @@ import { Platform } from './platform';
 import { Game } from './game';
 
 interface VideoConstructorParams {
+  id?: number;
   title: string;
   description: string;
   type: Type;
@@ -22,6 +23,7 @@ interface VideoConstructorParams {
 }
 
 export class Video extends Entity {
+  private _id: number | null;
   private _title: string;
   private _description: string;
   private _games?: Game[] | undefined;
@@ -36,6 +38,7 @@ export class Video extends Entity {
   }[];
 
   constructor({
+    id,
     title,
     description,
     type,
@@ -45,6 +48,7 @@ export class Video extends Entity {
     hosts,
   }: VideoConstructorParams) {
     super();
+    this.id = id ? id : null;
     this.title = title;
     this.description = description;
     this.games = games;
@@ -55,6 +59,13 @@ export class Video extends Entity {
   }
 
   // Getters and setters
+
+  public get id(): number | null {
+    return this._id;
+  }
+  public set id(value: number | null) {
+    this._id = value;
+  }
 
   public get title(): string {
     return this._title;
@@ -121,6 +132,7 @@ export class Video extends Entity {
 
   toDTO(): VideoDTO {
     const videoDTO: VideoDTO = {
+      id: this.id || 0,
       title: this.title,
       description: this.description,
       type: this.type,

@@ -51,6 +51,7 @@ export function convertRecordToGameDTO(
 export function convertVideoAndRelationsToVideoDTO(record: Record): VideoDTO {
   const videoNode: Node = record.get('video');
   const videoDTO: VideoDTO = {
+    id: videoNode.properties.id.toNumber(),
     title: videoNode.properties.title,
     description: videoNode.properties.description,
   };

@@ -111,3 +111,76 @@ WITH storyTag
 MATCH (v:VIDEO)
 WHERE v.title = "[Dragon Ball Z: Kakarot] First time playing! Time for the Cell games!!! #07"
 MERGE (v)-[:HAS]->(storyTag)
+
+// removing video before creating it again with added id
+
+MATCH (v:VIDEO {title: "[Dragon Ball Z: Kakarot] First time playing! Time for the Cell games!!! #07"})
+DETACH DELETE v;
+
+// adding a index node to hold data for node index property if there is not an existing property being a unique identifier
+
+Create (ic:INDEX_COUNTER{video:0})
+
+// recreate sample video using the index and incrementing it
+
+MATCH (ic:INDEX_COUNTER)
+SET ic.video = ic.video + 1
+WITH ic.video as newId
+CREATE
+(remadevideo:VIDEO{
+    id:newId,
+    title:"[Dragon Ball Z: Kakarot] First time playing! Time for the Cell games!!! #07",
+    description:"It's time for the Cell games with some iconic moments of Dragon Ball Z!"
+    })
+
+WITH remadevideo
+MATCH (p:PLATFORM)
+WHERE p.name = "Youtube"
+MERGE (remadevideo)-[:IS_HOSTED_ON{
+    date: date('2024-11-05'),
+    url:"https://www.youtube.com/watch?v=wRsDpb6o_mg",
+    thumbnail:"2024-11-05-small.webp"}
+    ]->(p)
+
+WITH remadevideo
+UNWIND ['game', 'story'] AS tagLabels
+MATCH (tags:TAG {label: tagLabels})
+MERGE (remadevideo)-[:HAS]->(tags)
+
+WITH remadevideo
+MATCH (ca:CATEGORY)
+WHERE ca.label = "game"
+MERGE (remadevideo)-[:BELONGS_TO]->(ca)
+
+WITH remadevideo
+MATCH (ty:TYPE)
+WHERE ty.label = "archive"
+MERGE (remadevideo)-[:IS_OF]->(ty)
+
+WITH remadevideo
+MATCH (ga:GAME)
+WHERE ga.name = "Dragon Ball Z: Kakarot"
+MERGE (remadevideo)-[:FEATURES]->(ga)
+
+// creating constraints
+
+CREATE CONSTRAINT unique_genre IF NOT EXISTS
+FOR (ge:GENRE) REQUIRE ge.label IS UNIQUE;
+
+CREATE CONSTRAINT unique_game IF NOT EXISTS
+FOR (ga:GAME) REQUIRE ga.name IS UNIQUE;
+
+CREATE CONSTRAINT unique_type IF NOT EXISTS
+FOR (ty:TYPE) REQUIRE ty.label IS UNIQUE;
+
+CREATE CONSTRAINT unique_category IF NOT EXISTS
+FOR (ca:CATEGORY) REQUIRE ca.label IS UNIQUE;
+
+CREATE CONSTRAINT unique_tag IF NOT EXISTS
+FOR (tag:TAG) REQUIRE tag.label IS UNIQUE;
+
+CREATE CONSTRAINT unique_platform IF NOT EXISTS
+FOR (pl:PLATFORM) REQUIRE pl.name IS UNIQUE;
+
+CREATE CONSTRAINT video_key IF NOT EXISTS
+FOR (vi:VIDEO) REQUIRE (vi.id, vi.title, vi.description) IS NODE KEY;

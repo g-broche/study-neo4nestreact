@@ -6,6 +6,7 @@ function VideoGrid({ videos }: { videos: VideoDTO[] }) {
       <table className="video-index">
         <thead>
           <tr>
+            <th>id</th>
             <th>Thumbnail</th>
             <th>Title</th>
             <th>Date</th>
@@ -19,6 +20,7 @@ function VideoGrid({ videos }: { videos: VideoDTO[] }) {
         <tbody>
           {videos.map(video => (
             <tr>
+              <td>{video.id}</td>
               <td className="thumbnail-cell">
                 <img 
                   src={video.hosts![0].thumbnail}

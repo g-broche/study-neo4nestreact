@@ -24,6 +24,7 @@ export interface GameDTO {
 }
 
 export interface VideoDTO {
+  id: number;
   title: string;
   description: string;
   games?: GameDTO[];
