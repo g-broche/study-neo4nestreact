@@ -40,3 +40,24 @@ export interface HostDTO {
   url: string;
   thumbnail: string;
 }
+
+export interface RoleDTO {
+  name: string;
+}
+export interface PermissionDTO {
+  access: string;
+}
+export interface UserDTO {
+  username: string;
+  roles: RoleDTO[];
+  permissions: PermissionDTO[];
+}
+export interface UserDTO {
+  username: string;
+  roles: RoleDTO[];
+  permissions: PermissionDTO[];
+}
+export interface password {
+  username: string;
+  password: string;
+}

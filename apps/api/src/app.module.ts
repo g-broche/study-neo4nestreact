@@ -10,6 +10,8 @@ import { CategoryModule } from './nodes/category/category.module';
 import { TagModule } from './nodes/tag/tag.module';
 import { PlatformModule } from './nodes/platform/platform.module';
 import { VideoModule } from './nodes/video/video.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { VideoModule } from './nodes/video/video.module';
     TagModule,
     PlatformModule,
     VideoModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
