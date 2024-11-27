@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { QueryResponse } from 'src/interface/queryResponse';
+import { QueryMultipleEntityResponse } from 'src/interface/queryResponse';
 import { Neo4jService } from 'src/neo4j/neo4j.service';
 import { convertRecordToGameDTO } from 'src/utils/nodeToDTOConverters';
 
@@ -7,7 +7,7 @@ import { convertRecordToGameDTO } from 'src/utils/nodeToDTOConverters';
 export class GameService {
   constructor(private readonly neo4jService: Neo4jService) {}
 
-  public async getGames(): Promise<QueryResponse> {
+  public async getGames(): Promise<QueryMultipleEntityResponse> {
     try {
       const driver = this.neo4jService.getDriver();
       const result = await driver.executeQuery(`

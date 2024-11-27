@@ -6,15 +6,29 @@ import {
 } from 'src/interface/dataTransfertObject';
 
 export class User extends Entity {
+  private _id: string;
   private _username: string;
   private _roles: string[];
   private _permissions: string[];
 
-  constructor(username: string, roles: string[], permissions: string[]) {
+  constructor(
+    id: string,
+    username: string,
+    roles: string[],
+    permissions: string[],
+  ) {
     super();
+    this.id = id;
     this.username = username;
     this.roles = roles;
     this.permissions = permissions;
+  }
+
+  public get id(): string {
+    return this._id;
+  }
+  public set id(value: string) {
+    this._id = value;
   }
 
   public get username(): string {
@@ -46,6 +60,7 @@ export class User extends Entity {
       return { access: permission };
     });
     return {
+      id: this.id,
       username: this.username,
       roles: roles,
       permissions: permissions,

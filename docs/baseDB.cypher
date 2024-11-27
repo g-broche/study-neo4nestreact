@@ -184,3 +184,60 @@ FOR (pl:PLATFORM) REQUIRE pl.name IS UNIQUE;
 
 CREATE CONSTRAINT video_key IF NOT EXISTS
 FOR (vi:VIDEO) REQUIRE (vi.id, vi.title, vi.description) IS NODE KEY;
+
+// adding permissions and roles
+
+CREATE CONSTRAINT unique_role IF NOT EXISTS
+FOR (role:ROLE) REQUIRE role.label IS UNIQUE;
+
+CREATE CONSTRAINT unique_permission IF NOT EXISTS
+FOR (perm:PERMISSION) REQUIRE perm.right IS UNIQUE;
+
+CREATE
+(permReadMedia:PERMISSION{right:"read:media_data"}),
+(permCreateMedia:PERMISSION{right:"create:media_data"}),
+(permEditMedia:PERMISSION{right:"edit:media_data"}),
+(permDeleteMedia:PERMISSION{right:"delete:media_data"}),
+
+(permReadSelfUser:PERMISSION{right:"read:self_user"}),
+(permEditSelfUser:PERMISSION{right:"edit:self_user"}),
+(permReadUserIndex:PERMISSION{right:"read:user_index"}),
+(permEditUserRole:PERMISSION{right:"edit:user_role"}),
+
+(admin:ROLE{label:"admin"}),
+(user:ROLE{label:"user"})
+
+WITH 
+    permReadMedia, 
+    permCreateMedia, 
+    permEditMedia, 
+    permDeleteMedia, 
+    permReadSelfUser, 
+    permEditSelfUser, 
+    permReadUserIndex, 
+    permEditUserRole,
+    admin,
+    user
+UNWIND [
+    permReadMedia,
+    permCreateMedia,
+    permEditMedia,
+    permDeleteMedia,
+    permReadSelfUser,
+    permEditSelfUser,
+    permReadUserIndex,
+    permEditUserRole
+    ] AS admin_permissions
+MERGE (admin)-[:HAS]->(admin_permissions)
+
+WITH 
+    permReadMedia,  
+    permReadSelfUser, 
+    permEditSelfUser, 
+    user
+UNWIND [
+    permReadMedia,
+    permReadSelfUser,
+    permEditSelfUser
+    ] AS user_permissions
+MERGE (user)-[:HAS]->(user_permissions)

@@ -48,16 +48,12 @@ export interface PermissionDTO {
   access: string;
 }
 export interface UserDTO {
+  id: string;
   username: string;
   roles: RoleDTO[];
   permissions: PermissionDTO[];
 }
-export interface UserDTO {
-  username: string;
-  roles: RoleDTO[];
-  permissions: PermissionDTO[];
-}
-export interface password {
+export interface loginDTO {
   username: string;
   password: string;
 }

@@ -1,5 +1,7 @@
-import { QueryResponse } from './queryResponse';
+import { EntityDTO } from 'src/type/entity';
 
 export interface JsonQueryResponse {
-  data: QueryResponse;
+  success: boolean;
+  items: EntityDTO[];
+  message?: string;
 }
