@@ -42,16 +42,20 @@ export interface HostDTO {
 }
 
 export interface RoleDTO {
-  name: string;
+  label: string;
 }
 export interface PermissionDTO {
-  access: string;
+  right: string;
 }
-export interface UserDTO {
+export interface UserDetailedDTO {
   id: string;
   username: string;
   roles: RoleDTO[];
   permissions: PermissionDTO[];
+}
+export interface UserBasicDTO {
+  username: string;
+  roles?: RoleDTO[];
 }
 export interface loginDTO {
   username: string;

@@ -12,19 +12,12 @@ import {
   PlatformDTO,
   TagDTO,
   TypeDTO,
-  UserDTO,
+  UserBasicDTO,
+  UserDetailedDTO,
   VideoDTO,
 } from 'src/interface/dataTransfertObject';
 
-export type Entity =
-  | Genre
-  | Game
-  | Type
-  | Category
-  | Tag
-  | Platform
-  | Video
-  | UserDTO;
+export type Entity = Genre | Game | Type | Category | Tag | Platform | Video;
 export type EntityDTO =
   | GenreDTO
   | GameDTO
@@ -32,5 +25,5 @@ export type EntityDTO =
   | CategoryDTO
   | TagDTO
   | VideoDTO
-  | PlatformDTO
-  | UserDTO;
+  | PlatformDTO;
+export type UserDTO = UserBasicDTO | UserDetailedDTO;

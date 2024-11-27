@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Node, Record } from 'neo4j-driver';
 import {
   CategoryDTO,
@@ -6,6 +7,8 @@ import {
   PlatformDTO,
   TagDTO,
   TypeDTO,
+  UserBasicDTO,
+  UserDetailedDTO,
   VideoDTO,
 } from 'src/interface/dataTransfertObject';
 
@@ -89,4 +92,36 @@ export function convertVideoAndRelationsToVideoDTO(record: Record): VideoDTO {
     });
   }
   return videoDTO;
+}
+
+export function convertUserToUserBasicDTO(record: Record): UserBasicDTO {
+  const userNode: Node = record.get('user');
+  const userDTO: UserBasicDTO = { username: userNode.properties.username };
+  if (record.keys.includes('roles')) {
+    const rolesNode = record.get('roles');
+    userDTO.roles = rolesNode.map((roleNode: any) => {
+      return { label: roleNode.properties.label };
+    });
+  }
+  return userDTO;
+}
+
+export function convertUserToUserDetailedDTO(record: Record): UserDetailedDTO {
+  const userNode: Node = record.get('user');
+  const userRoles = record
+    .get('roles')
+    .map((roleNode: Node) => {
+    return { label: roleNode.properties.label };
+  });
+  const userPermissions = record
+    .get('permissions')
+    .map((permissionNode: Node) => {
+      return { right: permissionNode.properties.right };
+    });
+  return {
+    id: userNode.properties.id,
+    username: userNode.properties.username,
+    roles: userRoles,
+    permissions: userPermissions,
+  };
 }

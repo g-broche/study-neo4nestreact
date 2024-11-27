@@ -1,11 +1,11 @@
-import { Entity } from './entity';
 import {
   PermissionDTO,
   RoleDTO,
-  UserDTO,
+  UserBasicDTO,
+  UserDetailedDTO,
 } from 'src/interface/dataTransfertObject';
 
-export class User extends Entity {
+export class User {
   private _id: string;
   private _username: string;
   private _roles: string[];
@@ -17,7 +17,6 @@ export class User extends Entity {
     roles: string[],
     permissions: string[],
   ) {
-    super();
     this.id = id;
     this.username = username;
     this.roles = roles;
@@ -52,18 +51,28 @@ export class User extends Entity {
     this._permissions = value;
   }
 
-  toDTO(): UserDTO {
+  toDetailedDTO(): UserDetailedDTO {
     const roles: RoleDTO[] = this.roles.map((role) => {
-      return { name: role };
+      return { label: role };
     });
     const permissions: PermissionDTO[] = this.permissions.map((permission) => {
-      return { access: permission };
+      return { right: permission };
     });
     return {
       id: this.id,
       username: this.username,
       roles: roles,
       permissions: permissions,
+    };
+  }
+
+  toBasicDTO(): UserBasicDTO {
+    const roles: RoleDTO[] = this.roles.map((role) => {
+      return { label: role };
+    });
+    return {
+      username: this.username,
+      roles: roles,
     };
   }
 }

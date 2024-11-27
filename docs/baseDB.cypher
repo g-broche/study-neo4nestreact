@@ -241,3 +241,10 @@ UNWIND [
     permEditSelfUser
     ] AS user_permissions
 MERGE (user)-[:HAS]->(user_permissions)
+
+// adding user node constraint
+
+CREATE CONSTRAINT unique_username IF NOT EXISTS
+FOR (user:USER) REQUIRE user.username IS UNIQUE;
+CREATE CONSTRAINT unique_userid IF NOT EXISTS
+FOR (user:USER) REQUIRE user.id IS UNIQUE;

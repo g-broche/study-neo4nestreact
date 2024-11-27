@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
-import { UserDTO } from 'src/interface/dataTransfertObject';
 import { TokenPayloadData } from 'src/interface/token';
 import { JwtService } from '@nestjs/jwt';
+import { UserDetailedDTO } from 'src/interface/dataTransfertObject';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +26,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     const queryResult = await this.usersService.findOne(inputedUsername);
-    const validatedUser = queryResult.item! as UserDTO;
+    const validatedUser = queryResult.item! as UserDetailedDTO;
     const payload: TokenPayloadData = {
       sub: validatedUser.id,
       username: validatedUser.username,
