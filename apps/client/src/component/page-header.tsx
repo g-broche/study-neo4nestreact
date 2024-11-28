@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import ConnectionMenu from "./connection-menu"
 
 function PageHeader(){
   return (
@@ -14,6 +15,9 @@ function PageHeader(){
             </li>
           </ul>
         </nav>
+        <section id="connection-pannel">
+          <ConnectionMenu />
+        </section>
       </header>
     </>
   )

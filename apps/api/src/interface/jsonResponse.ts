@@ -1,4 +1,5 @@
 import { EntityDTO, UserDTO } from 'src/type/entity';
+import { RoleDTO } from './dataTransfertObject';
 
 export interface JsonQueryResponse {
   data: {
@@ -10,8 +11,8 @@ export interface JsonQueryResponse {
 
 export interface JsonSignInResponse {
   data: {
-    success: boolean;
     token: string;
-    message?: string;
+    username: string;
+    roles: RoleDTO[];
   };
 }

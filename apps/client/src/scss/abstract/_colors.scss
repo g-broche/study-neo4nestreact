@@ -5,3 +5,16 @@ $color-hover: rgb(0, 153, 255);
 $color-neutral: rgb(55, 152, 221);
 $color-negative: rgb(203, 27, 27);
 $color-positive: rgb(25, 218, 35);
+
+
+.background-positive{
+    background-color: $color-positive;
+}
+
+.background-neutral{
+    background-color: $color-neutral;
+}
+
+.background-negative{
+    background-color: $color-negative;
+}

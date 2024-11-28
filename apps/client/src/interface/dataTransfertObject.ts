@@ -40,3 +40,17 @@ export interface HostDTO {
   url: string;
   thumbnail: string;
 }
+
+export interface RoleDTO {
+  label: string;
+}
+
+export interface LoginDTO {
+  username: string;
+  password: string;
+}
+export interface UserDTO {
+  token: string;
+  username: string;
+  roles: RoleDTO[];
+}

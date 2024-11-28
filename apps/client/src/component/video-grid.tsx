@@ -54,10 +54,10 @@ function VideoGrid({ videos }: { videos: VideoDTO[] }) {
               <td className="action-cell list-cell">
                 <ul className="row-list column-list">
                   <li>
-                    <button className="edit">edit(todo)</button>
+                    <button className="background-neutral">edit(todo)</button>
                   </li>
                   <li>
-                    <button className="delete">delete(todo)</button>
+                    <button className="background-negative">delete(todo)</button>
                   </li>
                 </ul>
               </td>

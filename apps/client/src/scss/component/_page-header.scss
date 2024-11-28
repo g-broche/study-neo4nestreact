@@ -5,9 +5,9 @@
     width: 100%;
     display: flex;
     align-items: center;
+    padding: $paddingV-container-level1 $paddingH-container-level1;
     nav{
         width: fit-content;
-        padding: $paddingV-container-level1 $paddingH-container-level1;
         ul{
             display: flex;
             gap: 20px;
@@ -20,5 +20,27 @@
             color:$color-hover;
             transform: scale(1.1);
         }
+    }
+}
+
+#connection-pannel{
+    margin-left: auto;
+    form{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        div{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: .5rem;
+        }
+    }
+    .logout-spacer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
     }
 }

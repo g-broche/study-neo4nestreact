@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { TokenPayloadData } from 'src/interface/token';
 import { JwtService } from '@nestjs/jwt';
 import { UserDetailedDTO } from 'src/interface/dataTransfertObject';
+import { JsonSignInResponse } from 'src/interface/jsonResponse';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   async signIn(
     inputedUsername: string,
     inputedPassword: string,
-  ): Promise<{ access_token: string }> {
+  ): Promise<JsonSignInResponse> {
     const passwordQueryResult =
       await this.usersService.getPasswordForAuth(inputedUsername);
     if (!passwordQueryResult.success || !passwordQueryResult.value) {
@@ -36,7 +37,11 @@ export class AuthService {
     };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      data: {
+        token: await this.jwtService.signAsync(payload),
+        username: validatedUser.username,
+        roles: validatedUser.roles,
+      },
     };
   }
 }
