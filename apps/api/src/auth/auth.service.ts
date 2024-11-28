@@ -12,7 +12,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(inputedUsername: string, inputedPassword: string): Promise<any> {
+  async signIn(
+    inputedUsername: string,
+    inputedPassword: string,
+  ): Promise<{ access_token: string }> {
     const passwordQueryResult =
       await this.usersService.getPasswordForAuth(inputedUsername);
     if (!passwordQueryResult.success || !passwordQueryResult.value) {

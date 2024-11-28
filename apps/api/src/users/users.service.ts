@@ -7,7 +7,10 @@ import {
 import { Neo4jService } from 'src/neo4j/neo4j.service';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { convertUserToUserBasicDTO } from 'src/utils/nodeToDTOConverters';
+import {
+  convertUserToUserBasicDTO,
+  convertUserToUserDetailedDTO,
+} from 'src/utils/nodeToDTOConverters';
 
 const BCRYPT_SALT_ROUNDS = 10;
 
@@ -19,29 +22,51 @@ export class UsersService {
   ) {}
   async getPasswordForAuth(username: string): Promise<QueryStringResponse> {
     try {
+      const driver = this.neo4jService.getDriver();
+      const result = await driver.executeQuery(
+        `MATCH (user:USER{username: $name})
+        RETURN user.password`,
+        { name: username },
+        { database: 'neo4j' },
+      );
+      const hashedPassword = result.records[0].get('user.password');
       return {
         success: true,
-        value: undefined,
+        value: hashedPassword,
       };
     } catch (error) {
+      console.log(error);
       return {
         success: false,
         value: undefined,
-        message: 'error occured while getting password',
       };
     }
   }
   async findOne(username: string): Promise<QuerySingleEntityResponse> {
     try {
+      const driver = this.neo4jService.getDriver();
+      const result = await driver.executeQuery(
+        `MATCH (user:USER{username: $name})
+        MATCH (user)-[IS]->(r:ROLE)
+        MATCH (r)-[HAS]->(p:PERMISSION)
+        RETURN
+          user,
+          COLLECT (DISTINCT r) AS roles,
+          COLLECT (DISTINCT p) AS permissions`,
+        { name: username },
+        { database: 'neo4j' },
+      );
+      const userDTO = convertUserToUserDetailedDTO(result.records[0]);
+      console.log(userDTO);
       return {
         success: true,
-        item: undefined,
+        item: userDTO,
       };
     } catch (error) {
+      console.log(error);
       return {
         success: false,
         item: undefined,
-        message: 'error occured while finding user',
       };
     }
   }

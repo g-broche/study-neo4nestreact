@@ -7,3 +7,11 @@ export interface JsonQueryResponse {
     message?: string;
   };
 }
+
+export interface JsonSignInResponse {
+  data: {
+    success: boolean;
+    token: string;
+    message?: string;
+  };
+}
