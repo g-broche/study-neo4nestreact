@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { LoginDTO, UserDTO } from "../interface/dataTransfertObject";
+import { LoginDTO, ConnectedUser } from "../interface/dataTransfertObject";
 import { JsonSignInResponse } from "../interface/jsonResponse";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { clearUser, setUser } from "../state/user/userSlice";
+import { converterConnectedUserDTOToConnectedUser } from "../utils/converters";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const ENDPOINT_LOGIN = "/auth/login";
 
 function ConnectionMenu() {
-  const [user, setUser] = useState<undefined | UserDTO>();
   const [usernameInputValue, setUsernameInputValue] = useState('');
   const [passwordInputValue, setPasswordInputValue] = useState('');
+  const reduxUser = useSelector((state: RootState) => state.user.value);
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,8 +34,9 @@ function ConnectionMenu() {
         return;
       }
       const loggedUserResponse: JsonSignInResponse = await response.json();
-      const loggedUser: UserDTO = loggedUserResponse.data;
-      setUser(loggedUser);
+      const loggedUser: ConnectedUser = converterConnectedUserDTOToConnectedUser(loggedUserResponse.data) ;
+
+      dispatch(setUser(loggedUser));
     } catch (error) {
       alert("An error occurred while attempting to log in")
     }
@@ -38,17 +44,18 @@ function ConnectionMenu() {
 
   const handleLogout = () => {
     try {
-      setUser(undefined);
+      // setUser(undefined);
+      dispatch(clearUser());
     } catch (error) {
       alert("An error occurred while attempting to log of")
     }
   }
 
-  if (user) {
+  if (reduxUser != null) {
     return (
       <>
         <div className="logout-spacer">
-          <span>{user.username}</span>
+          <span>{reduxUser.username}</span>
           <button className="background-negative" onClick={handleLogout}>logout</button>
         </div>
       </>

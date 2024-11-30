@@ -6,6 +6,8 @@ import Home from './routes/home.tsx'
 import VideoIndex from './routes/video-index.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import RootLayout from './layout/root-layout.tsx'
+import { Provider } from 'react-redux'
+import { store } from './state/store.ts'
 
 const queryClient = new QueryClient();
 
@@ -28,8 +30,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>,
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    </Provider>
   </StrictMode>,
 )

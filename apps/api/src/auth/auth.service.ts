@@ -41,6 +41,7 @@ export class AuthService {
         token: await this.jwtService.signAsync(payload),
         username: validatedUser.username,
         roles: validatedUser.roles,
+        permissions: validatedUser.permissions,
       },
     };
   }

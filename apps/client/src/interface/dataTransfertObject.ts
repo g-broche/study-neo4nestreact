@@ -45,12 +45,24 @@ export interface RoleDTO {
   label: string;
 }
 
+export interface PermissionDTO {
+  right: string;
+}
+
 export interface LoginDTO {
   username: string;
   password: string;
 }
-export interface UserDTO {
+export interface ConnectedUserDTO {
   token: string;
   username: string;
   roles: RoleDTO[];
+  permissions: PermissionDTO[];
+}
+
+export interface ConnectedUser {
+  token: string;
+  username: string;
+  roles: string[];
+  permissions: string[];
 }
