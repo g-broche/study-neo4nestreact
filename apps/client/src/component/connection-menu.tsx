@@ -12,7 +12,7 @@ const ENDPOINT_LOGIN = "/auth/login";
 function ConnectionMenu() {
   const [usernameInputValue, setUsernameInputValue] = useState('');
   const [passwordInputValue, setPasswordInputValue] = useState('');
-  const reduxUser = useSelector((state: RootState) => state.user.value);
+  const user = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +37,7 @@ function ConnectionMenu() {
       const loggedUser: ConnectedUser = converterConnectedUserDTOToConnectedUser(loggedUserResponse.data) ;
 
       dispatch(setUser(loggedUser));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       alert("An error occurred while attempting to log in")
     }
@@ -44,18 +45,18 @@ function ConnectionMenu() {
 
   const handleLogout = () => {
     try {
-      // setUser(undefined);
       dispatch(clearUser());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       alert("An error occurred while attempting to log of")
     }
   }
 
-  if (reduxUser != null) {
+  if (user != null) {
     return (
       <>
         <div className="logout-spacer">
-          <span>{reduxUser.username}</span>
+          <span>{user.username}</span>
           <button className="background-negative" onClick={handleLogout}>logout</button>
         </div>
       </>
