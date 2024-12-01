@@ -32,21 +32,21 @@ function VideoGrid({ videos }: { videos: VideoDTO[] }) {
               <td className="url-cell list-cell">
                 <ul className="column-list">
                   {video.hosts!.map(host => (
-                    <li>{host.url}</li>
+                    <li key={`${video.title}-${host.name}`}>{host.url}</li>
                   ))}
                 </ul>
               </td>
               <td className="category-cell list-cell">
                 <ul className="row-list">
                   {video.categories!.map(category => (
-                    <li>{category.label}</li>
+                    <li key={`${video.title}-${category.label}`}>{category.label}</li>
                   ))}
                 </ul>
               </td>
               <td className="tag-cell list-cell">
                 <ul className="row-list">
                   {video.tags!.map(tag => (
-                    <li>{tag.label}</li>
+                    <li key={`${video.title}-${tag.label}`}>{tag.label}</li>
                   ))}
                 </ul>
               </td>

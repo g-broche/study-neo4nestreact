@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { VideoDTO } from "../interface/dataTransfertObject";
 import VideoGrid from "../component/video-grid";
+import { Link } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 const ENDPOINT = "/videos";
@@ -68,6 +69,11 @@ function VideoIndex(){
           <h1 className="title">Video list</h1>
         </header>
         <section className="main-component">
+          <div className="add-new-item-container">
+            <button>
+              <Link to="/videos/add" className="button">new</Link>
+            </button>
+          </div>
           {getVideoContent()}
         </section>
       </main>

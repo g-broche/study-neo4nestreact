@@ -66,3 +66,11 @@ export interface ConnectedUser {
   roles: string[];
   permissions: string[];
 }
+
+export interface VideoMetadataNodes {
+  games: GameDTO[];
+  types: TypeDTO[];
+  categories: CategoryDTO[];
+  tags: TagDTO[];
+  platforms: PlatformDTO[]
+}
